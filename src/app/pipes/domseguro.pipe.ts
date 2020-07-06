@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { stringify } from 'querystring';
 
 
 @Pipe({
@@ -9,7 +10,8 @@ export class DomseguroPipe implements PipeTransform {
 
   constructor(private domSanitizer: DomSanitizer){ }
 
-  transform(value: string, url: string): any {
+  transform(value: string): any {
+    const url = 'https://open.spotify.com/embed?uri=';
     return this.domSanitizer.bypassSecurityTrustResourceUrl(url + value);
   }
 

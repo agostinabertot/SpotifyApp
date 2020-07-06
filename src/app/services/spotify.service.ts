@@ -17,7 +17,7 @@ getQuery( query: string){
     const url = `https://api.spotify.com/v1/${query}`;
 
     const headers = new HttpHeaders({
-      Authorization: 'Bearer BQBSIoQYYIiDK6NSLe6hZPom-4t0nXgn0X_dcAURv0CqZ7j54cryHlt2Nz3j3TFtVtwkji6HD-SlUGBOJ_U'
+      Authorization: 'Bearer (TOKEN SPOTIFY)'
     });
     return this.http.get(url, {headers});
   }

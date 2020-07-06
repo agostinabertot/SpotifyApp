@@ -36,7 +36,7 @@
                     <td>
                         <!-- De la pagina de spotify voy a: https://developer.spotify.com/documentation/widgets/generate/play-button/  para consumir el widget-->
                         <!-- <audio src="https://open.spotify.com/embed/album/0D5U7oXEE4dut2DPyUDLca"></audio> -->
-                        <iframe [src]="track.uri | domseguro:'https://open.spotify.com/embed?uri=' " width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        <iframe [src]="track.uri | domseguro" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </tr>
             </tbody>
         </table>
