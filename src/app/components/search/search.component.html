@@ -5,16 +5,17 @@
     </div>
 </div>
 
-<div class="card-columns m-5">
-
-
-    <div *ngFor=" let artista of artistas " class="card">
-        <img [src]="artista.images[0].url" class="card-img-top" alt="...">
+<!-- ESTO LO SUSTITUI POR EL APP-TARJETA -->
+<!-- <div class="card-columns m-5">
+    <div *ngFor=" let artista of artistas " class="card"> -->
+<!-- la imagen se valida antes de mostrarla con el pipe: noimage porque si no hay ninguna imagen justo en el album que estoy buscando me tira un error -->
+<!-- <img [src]="artista.images | noimage" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{artista.name}}</h5>
         </div>
     </div>
+</div> -->
 
+<app-loading *ngIf="loading" class="m-5"></app-loading>
 
-
-</div>
+<app-tarjeta *ngIf="!loading" [items]="artistas"></app-tarjeta>

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 
+import { map } from 'rxjs/operators';
+
+
 @Injectable({
   providedIn: 'root'
   // forma automatica de importar servicios
@@ -8,24 +11,38 @@ import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/htt
 })
 export class SpotifyService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
 
-   }
+getQuery( query: string){
+    const url = `https://api.spotify.com/v1/${query}`;
+
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer BQBSIoQYYIiDK6NSLe6hZPom-4t0nXgn0X_dcAURv0CqZ7j54cryHlt2Nz3j3TFtVtwkji6HD-SlUGBOJ_U'
+    });
+    return this.http.get(url, {headers});
+  }
+
 getNewReleases(){
-const headers = new HttpHeaders({
-  Authorization: 'Bearer BQCW3os1Me5vfr8VpM6awSird7BFCMmIyx7kn-RFddlVzoYmE4i0Lhh2cPLoxV9An8mAM3J22V6Rm6HHKJs'
-});
 
-return this.http.get('https://api.spotify.com/v1/browse/new-releases', {headers});
-
+  return this.getQuery('browse/new-releases')
+  .pipe( map( (data: any) => data.albums.items));
 }
 
-getArtista( termino: string){
-  const headers = new HttpHeaders({
-    Authorization: 'Bearer BQCW3os1Me5vfr8VpM6awSird7BFCMmIyx7kn-RFddlVzoYmE4i0Lhh2cPLoxV9An8mAM3J22V6Rm6HHKJs'
-  });
-  
-  return this.http.get(`https://api.spotify.com/v1/search?q=${ termino }&type=artist&limit=15`, {headers});
+
+// para que en el home.component no tenga que poner data.albums.items para obetener la info que quiero , lo hago directamente aca con el operador MAP y uso esa variable data en el componente
+
+getArtistas( termino: string ){
+  return this.getQuery(`search?q=${ termino }&type=artist&limit=15`)
+  .pipe( map( (data: any) => data.artists.items));
+}
+
+getArtista( id: string ){
+  return this.getQuery(`artists/${ id }`);
+}
+
+getTopTracks( id: string ){
+  return this.getQuery(`artists/${ id }/top-tracks?country=us`)
+  .pipe( map( (data: any) => data.tracks));
 }
 
 }

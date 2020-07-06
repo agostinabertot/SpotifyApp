@@ -1,0 +1,18 @@
+<div class="card-columns m-5 animated fadeIn">
+
+    <!-- la clase PUNTERO esta definida en el styles.css y lo que hace es que cuando paso el mouse por arriba de una tarjeta pasa a ser de una flecha a una manito, luego lo que quiero es que al hacer click en esa tarjeta me muestre la pagina del artista-->
+    <div (click)="verArtista(item)" *ngFor=" let item of items " class="card puntero">
+        <img [src]="item.images | noimage" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <p class="card-text">
+                <span *ngFor=" let artista of item.artists " class="badge badge-pill badge-primary">
+                    {{artista.name}}
+                </span>
+            </p>
+        </div>
+    </div>
+
+
+
+</div>
